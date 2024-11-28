@@ -19,8 +19,8 @@ const errHandler_1 = require("./app/middleware/errHandler");
 const routes_1 = __importDefault(require("./app/routes"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const app = (0, express_1.default)();
-app.get('/test', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    res.send('Test route');
+app.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    res.send('Home route');
 }));
 // parser
 app.use((0, cors_1.default)({
@@ -36,8 +36,6 @@ app.use((0, cookie_parser_1.default)());
 app.use(express_1.default.json());
 // Router
 app.use('/api/v1', routes_1.default);
-// app.use('/api/v1/students', studentRouter)
-// app.use('/api/v1/users', userRoute)
 // error handler
 app.use(errHandler_1.notFoundErrHandler);
 app.use(errHandler_1.globalErrHandler);

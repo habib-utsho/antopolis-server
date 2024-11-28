@@ -9,5 +9,5 @@ const animalSchema = new Schema<TAnimal>(
   { timestamps: true },
 )
 
-const Category = model('Category', animalSchema)
-export default Category
+const Animal = model('Animal', animalSchema)
+export default Animal

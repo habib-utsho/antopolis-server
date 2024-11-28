@@ -11,7 +11,7 @@ const insertCategory = async (payload: TCategory) => {
 const getAllCategories = async (query: Record<string, unknown>) => {
   const categoryQuery = new QueryBuilder(Category.find(), {
     ...query,
-    sort: `${query.sort || ''} name`,
+    sort: `name`,
   })
     .searchQuery(categorySearchableFields)
     .filterQuery()

@@ -11,7 +11,7 @@ const insertAnimal = async (payload: TAnimal) => {
 const getAllAnimals = async (query: Record<string, unknown>) => {
   const animalQuery = new QueryBuilder(Animal.find(), {
     ...query,
-    sort: `${query.sort || ''} name`,
+    sort: `name`,
   })
     .searchQuery(animalSearchableFields)
     .filterQuery()
