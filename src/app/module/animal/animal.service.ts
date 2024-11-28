@@ -1,0 +1,37 @@
+import Animal from './animal.model'
+import QueryBuilder from '../../builder/QueryBuilder'
+import { animalSearchableFields } from './animal.constant'
+import { TAnimal } from './animal.interface'
+
+const insertAnimal = async (payload: TAnimal) => {
+  const animal = await Animal.create(payload)
+  return animal
+}
+
+const getAllAnimals = async (query: Record<string, unknown>) => {
+  const animalQuery = new QueryBuilder(Animal.find(), {
+    ...query,
+    sort: `${query.sort || ''} name`,
+  })
+    .searchQuery(animalSearchableFields)
+    .filterQuery()
+    .sortQuery()
+    .paginateQuery()
+    .populateQuery([{ path: 'category', select: 'name' }])
+    .fieldFilteringQuery()
+
+  const result = await animalQuery?.queryModel
+  const total = await Animal.countDocuments(animalQuery?.queryModel.getFilter())
+  return { data: result, total }
+}
+
+const getSingleAnimalById = async (id: string) => {
+  const animal = await Animal.findById(id)
+  return animal
+}
+
+export const animalServices = {
+  insertAnimal,
+  getAllAnimals,
+  getSingleAnimalById,
+}
