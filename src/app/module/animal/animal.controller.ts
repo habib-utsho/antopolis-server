@@ -8,7 +8,8 @@ import AppError from '../../errors/appError'
 // Insert a new animal
 const insertAnimal: RequestHandler = catchAsync(async (req, res) => {
   const payload = req.body
-  const animal = await animalServices.insertAnimal(payload)
+  const file = req.file
+  const animal = await animalServices.insertAnimal(req.file, payload)
 
   sendResponse(res, StatusCodes.CREATED, {
     success: true,

@@ -3,8 +3,9 @@ import { TAnimal } from './animal.interface'
 
 const animalSchema = new Schema<TAnimal>(
   {
-    name: { type: String },
-    category: { type: Types.ObjectId, ref: 'Category' },
+    name: { type: String, required: true },
+    img: { type: String },
+    category: { type: Types.ObjectId, ref: 'Category', required: true },
   },
   { timestamps: true },
 )

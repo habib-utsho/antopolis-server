@@ -21,7 +21,8 @@ const appError_1 = __importDefault(require("../../errors/appError"));
 // Insert a new animal
 const insertAnimal = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const payload = req.body;
-    const animal = yield animal_service_1.animalServices.insertAnimal(payload);
+    const file = req.file;
+    const animal = yield animal_service_1.animalServices.insertAnimal(req.file, payload);
     (0, sendResponse_1.default)(res, http_status_codes_1.StatusCodes.CREATED, {
         success: true,
         message: 'Animal inserted successfully!',

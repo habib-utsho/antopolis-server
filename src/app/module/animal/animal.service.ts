@@ -2,8 +2,18 @@ import Animal from './animal.model'
 import QueryBuilder from '../../builder/QueryBuilder'
 import { animalSearchableFields } from './animal.constant'
 import { TAnimal } from './animal.interface'
+import { uploadImgToCloudinary } from '../../utils/uploadImgToCloudinary'
 
-const insertAnimal = async (payload: TAnimal) => {
+const insertAnimal = async (file: any, payload: TAnimal) => {
+  // file upload
+  const cloudinaryRes = await uploadImgToCloudinary(
+    `${payload.name}-${Date.now()}`,
+    file.path,
+  )
+  if (cloudinaryRes) {
+    payload.img = cloudinaryRes.secure_url
+  }
+
   const animal = await Animal.create(payload)
   return animal
 }

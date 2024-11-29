@@ -16,7 +16,13 @@ exports.animalServices = void 0;
 const animal_model_1 = __importDefault(require("./animal.model"));
 const QueryBuilder_1 = __importDefault(require("../../builder/QueryBuilder"));
 const animal_constant_1 = require("./animal.constant");
-const insertAnimal = (payload) => __awaiter(void 0, void 0, void 0, function* () {
+const uploadImgToCloudinary_1 = require("../../utils/uploadImgToCloudinary");
+const insertAnimal = (file, payload) => __awaiter(void 0, void 0, void 0, function* () {
+    // file upload
+    const cloudinaryRes = yield (0, uploadImgToCloudinary_1.uploadImgToCloudinary)(`${payload.name}-${Date.now()}`, file.path);
+    if (cloudinaryRes) {
+        payload.img = cloudinaryRes.secure_url;
+    }
     const animal = yield animal_model_1.default.create(payload);
     return animal;
 });
